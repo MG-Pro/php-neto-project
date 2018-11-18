@@ -20,5 +20,5 @@ function render($template, $params = []) {
 }
 
 render('header.php');
-include_once 'routers/router.php';
+include_once 'routers/userRouter.php';
 render('footer.php');
