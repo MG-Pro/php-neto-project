@@ -1,0 +1,38 @@
+html,
+body {
+  height: 100%;
+}
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.header {
+  min-height: 80px;
+}
+.footer {
+  flex: 0 0 auto;
+  background-color: #63617d;
+  text-align: center;
+  font-size: 20px;
+  color: #ffffff;
+  padding: 15px 0;
+}
+.main {
+  flex: 1 0 auto;
+}
+.sidebar {
+
+}
+.content {
+
+}
+.add-question {
+  font-size: 28px;
+  color: #ff7567;
+  
+  &:hover {
+    color: #b45a51;
+    text-decoration: none;
+  }
+}
