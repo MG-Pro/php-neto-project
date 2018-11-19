@@ -9,6 +9,9 @@ $pdo = new PDO(
 
 function render($template, $params = []) {
   $fileTemplate = 'views/templates/' . $template;
+  if(!isset($params['msgClass'])) {
+    $params['msgClass'] = false;
+  }
   if (is_file($fileTemplate)) {
     ob_start();
     if (count($params) > 0) {
@@ -19,6 +22,6 @@ function render($template, $params = []) {
   }
 }
 
-render('header.php');
+render('head.php');
 include_once 'routers/userRouter.php';
 render('footer.php');

@@ -1,26 +1,18 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport"
-    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>FAQ</title>
-  <link rel="stylesheet" href="views/css/bootstrap.min.css">
-  <link rel="stylesheet" href="views/css/style.css">
-</head>
-<body>
-<div class="wrapper">
-<main class="main">
-  <header class="header navbar navbar-dark bg-dark navbar-expand-lg">
-    <div class="container">
-      <a class="navbar-brand" href="index.php">FAQ</a>
-      <ul class="navbar-nav ml-auto">
+<header class="header navbar navbar-dark bg-dark navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="index.php">FAQ</a>
+    <ul class="navbar-nav ml-auto">
+      <?php if ($adminName): ?>
+        <li>
+          <a class="nav-link" href="index.php?admin=exit"><?php echo $adminName ?> (Выйти)</a>
+        </li>
+      <?php else: ?>
         <li>
           <a class="nav-link" href="index.php?admin=entry">Вход для админов</a>
         </li>
-      </ul>
-    </div>
-  </header>
+      <?php endif; ?>
+    </ul>
+  </div>
+</header>
 
 
