@@ -9,9 +9,6 @@ $pdo = new PDO(
 
 function render($template, $params = []) {
   $fileTemplate = 'views/templates/' . $template;
-  if(!isset($params['msgClass'])) {
-    $params['msgClass'] = false;
-  }
   if (is_file($fileTemplate)) {
     ob_start();
     if (count($params) > 0) {

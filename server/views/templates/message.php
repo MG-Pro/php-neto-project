@@ -1,8 +1,9 @@
-<div class="row mt-3">
-  <div class="col">
-    <?php if($msg): ?>
-      <div class="alert <?php echo $msgClass ? $msgClass : 'd-none' ?>"><?php echo $msg?></div>
-    <?php endif; ?>
+<?php if ($msg !== null): ?>
+  <div class="container">
+    <div class="row mt-3">
+      <div class="col">
+        <div class="alert <?php echo $msgClass !== null ? $msgClass : 'd-none' ?>"><?php echo $msg ?></div>
+      </div>
+    </div>
   </div>
-</div>
-
+<?php endif; ?>
