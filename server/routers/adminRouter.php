@@ -15,12 +15,16 @@ if (isset($_GET['admin'])) {
     $adminController->signOut();
   }
 } elseif (isset($_POST['admin'])) {
-  if($_POST['admin'] === 'signin') {
+  if ($_POST['admin'] === 'signin') {
     $login = $_POST['login'];
     $pas = $_POST['pas'];
     $admin = $adminController->signIn($login, $pas);
+  } elseif ($_POST['admin'] === 'signup') {
+    $login = $_POST['login'];
+    $pas = $_POST['pas'];
+    $pas2 = $_POST['pas2'];
+    $admin = $adminController->signUp($login, $pas, $pas2);
   }
-
 
 }
 

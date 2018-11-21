@@ -8,13 +8,13 @@ class AdminController {
   public function __construct($pdo) {
     $this->adminModel = new AdminModel($pdo);
   }
-  private function toSignInForm($login = null, $msgClass = null) {
-    render('admin/admin-header.php', ['adminName' => $login]);
+  private function toSignInForm($msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => null]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-signin.php');
   }
-  private function toSignUpForm($login = null, $msgClass = null) {
-    render('admin/admin-header.php', ['adminName' => $login]);
+  private function toSignUpForm($msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => null]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-signup.php');
   }
@@ -22,19 +22,24 @@ class AdminController {
     if ($login !== null && $pas !== null) {
       if (strlen($login) < 3) {
         $this->msg = 'Логин должен содержать не менее 3 символов';
-        $this->toSignInForm(null, 'alert-danger');
+        $this->toSignInForm('alert-danger');
       } elseif (strlen($pas) < 3) {
         $this->msg = 'Пароль должен содержать не менее 3 символов';
-        $this->toSignInForm(null, 'alert-danger');
+        $this->toSignInForm( 'alert-danger');
       } else {
         $admin = $this->adminModel->signIn($login, $pas);
-        if (count($admin) !== 0) {
-          $_SESSION['admin'] = $admin[0];
-          $this->toAdmin($login);
-          return $admin;
+        if (count($admin) !== '0') {
+          if($admin[0]['status'] === '1') {
+            $_SESSION['admin'] = $admin[0];
+            $this->toAdmin($login);
+            return $admin;
+          } else {
+            $this->msg = "Пользователь $login не имеет статус администратора";
+            $this->toSignInForm('alert-warning');
+          }
         } else {
           $this->msg = "Пользователь $login не зарегистрирован";
-          $this->toSignInForm($login, 'alert-danger');
+          $this->toSignInForm('alert-danger');
         }
       }
     } else {
@@ -44,10 +49,24 @@ class AdminController {
   }
   public function signUp($login = null, $pas = null, $pas2 = null) {
     if ($login !== null && $pas !== null) {
-
+      if (strlen($login) < 3) {
+        $this->msg = 'Логин должен содержать не менее 3 символов';
+        $this->toSignUpForm('alert-danger');
+      } elseif (strlen($pas) < 3) {
+        $this->msg = 'Пароль должен содержать не менее 3 символов';
+        $this->toSignUpForm('alert-danger');
+      } elseif (strlen($pas) !== strlen($pas2)) {
+        $this->msg = 'Пароли не совпадают';
+        $this->toSignUpForm('alert-danger');
+      } else {
+        $this->adminModel->signUp($login, $pas);
+        $this->msg = "$login успешно зарегестрирован, ожидайте подтверждения";
+        $this->toSignInForm('alert-success');
+      }
     } else {
       $this->toSignUpForm();
     }
+    return false;
   }
   public function signOut() {
     unset($_SESSION['admin']);
