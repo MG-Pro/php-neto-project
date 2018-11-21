@@ -17,4 +17,8 @@ class AdminModel {
     $this->request($sqlSignUp)->fetchAll(PDO::FETCH_ASSOC);
     return $this->request($sqlLastUserId)->fetchAll(PDO::FETCH_ASSOC);
   }
+  public function adminList() {
+    $sqlAdminList = "SELECT id, login, date_reg, status FROM admins";
+    return $this->request($sqlAdminList)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

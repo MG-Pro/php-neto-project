@@ -1,14 +1,5 @@
 <div class="container">
   <div class="row">
-    <div class="col ">
-      <ul class="nav border-bottom">
-        <li class="nav-item">
-          <a class="nav-link" href="index.php?admin=admin-list">Администраторы</a>
-        </li>
-      </ul>
-    </div>
-  </div>
-  <div class="row">
     <div class="col-3 admin-sidebar border-right">
       <h4>Категории</h4>
       <form class="mb-5">

@@ -13,6 +13,13 @@ if (isset($_GET['admin'])) {
     $adminController->signUp();
   } elseif ($_GET['admin'] === 'signout') {
     $adminController->signOut();
+  } elseif ($_GET['admin'] === 'admin-list') {
+    if (isset($_SESSION['admin']['login'])) {
+      $adminController->adminList($_SESSION['admin']['login']);
+    } else {
+      $adminController->signIn();
+    }
+
   }
 } elseif (isset($_POST['admin'])) {
   if ($_POST['admin'] === 'signin') {

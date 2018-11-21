@@ -18,6 +18,12 @@ class AdminController {
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-signup.php');
   }
+  private function toAdminList($login, $list, $msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => $login]);
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('admin/admin-panel.php');
+    render('admin/admin-list.php', ['adminList' => $list]);
+  }
   public function signIn($login = null, $pas = null) {
     if ($login !== null && $pas !== null) {
       if (strlen($login) < 3) {
@@ -72,11 +78,15 @@ class AdminController {
     unset($_SESSION['admin']);
     $this->signIn();
   }
-
+  public function adminList($login) {
+    $adminList = $this->adminModel->adminList();
+    $this->toAdminList($login, $adminList);
+  }
 
   public function toAdmin($login, $msgClass = null) {
     render('admin/admin-header.php', ['adminName' => $login]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('admin/admin-panel.php');
     render('admin/admin-content.php');
   }
 
