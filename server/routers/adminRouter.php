@@ -3,13 +3,15 @@ include_once 'controllers/adminController.php';
 $adminController = new AdminController($pdo);
 
 if (isset($_GET['admin'])) {
-  if ($_GET['admin'] === 'entry') {
+  if ($_GET['admin'] === 'signin') {
     if (isset($_SESSION['admin']['login'])) {
       $adminController->toAdmin($_SESSION['admin']['login']);
     } else {
       $adminController->signIn();
     }
-  } elseif ($_GET['admin'] === 'exit') {
+  } elseif ($_GET['admin'] === 'signup') {
+    $adminController->signUp();
+  } elseif ($_GET['admin'] === 'signout') {
     $adminController->signOut();
   }
 } elseif (isset($_POST['admin'])) {

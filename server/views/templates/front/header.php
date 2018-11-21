@@ -3,7 +3,7 @@
     <a class="navbar-brand" href="index.php">FAQ</a>
     <ul class="navbar-nav ml-auto">
       <li>
-        <a class="nav-link" href="index.php?admin=entry">Вход для админов</a>
+        <a class="nav-link" href="index.php?admin=signin">Вход для админов</a>
       </li>
     </ul>
   </div>
