@@ -26,8 +26,8 @@ class AdminController {
   }
   private function toAdminList($login, $list, $msgClass = null) {
     render('admin/admin-header.php', ['adminName' => $login]);
-    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-panel.php');
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-list.php', ['adminList' => $list]);
   }
   public function signIn($login = null, $pas = null) {

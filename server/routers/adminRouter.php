@@ -1,6 +1,9 @@
 <?php
 include_once 'controllers/adminController.php';
+include_once 'controllers/categoriesController.php';
+
 $adminController = new AdminController($pdo);
+$categoriesController = new CategoriesController($pdo);
 
 if (isset($_GET['admin'])) {
   if ($_GET['admin'] === 'signin') {
@@ -19,6 +22,13 @@ if (isset($_GET['admin'])) {
     } else {
       $adminController->signIn();
     }
+  } elseif ($_GET['admin'] === 'admin-categories') {
+    if (isset($_SESSION['admin']['login'])) {
+      $categoriesController->categoriesList($_SESSION['admin']['login']);
+    } else {
+      $adminController->signIn();
+    }
+
 
   }
 } elseif (isset($_POST['admin'])) {
