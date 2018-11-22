@@ -8,6 +8,12 @@ class AdminController {
   public function __construct($pdo) {
     $this->adminModel = new AdminModel($pdo);
   }
+  public function toAdmin($login, $msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => $login]);
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('admin/admin-panel.php');
+    render('admin/admin-content.php');
+  }
   private function toSignInForm($msgClass = null) {
     render('admin/admin-header.php', ['adminName' => null]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
@@ -82,12 +88,27 @@ class AdminController {
     $adminList = $this->adminModel->adminList();
     $this->toAdminList($login, $adminList);
   }
-
-  public function toAdmin($login, $msgClass = null) {
-    render('admin/admin-header.php', ['adminName' => $login]);
-    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
-    render('admin/admin-panel.php');
-    render('admin/admin-content.php');
+  public function statusToggle($login) {
+    $isSuper = $this->adminModel->isSuper($login);
+    if($isSuper) {
+      $adminList = $this->adminModel->adminList();
+      $this->msg = "Администатор '$login' не может быть отключен!";
+      $this->toAdminList($login, $adminList, 'alert-danger');
+    } else {
+      $this->adminModel->statusToggle($login);
+      $this->adminList($login);
+    }
+  }
+  public function delete($login) {
+    $isSuper = $this->adminModel->isSuper($login);
+    if($isSuper) {
+      $adminList = $this->adminModel->adminList();
+      $this->msg = "Администатор '$login' не может быть удален!";
+      $this->toAdminList($login, $adminList, 'alert-danger');
+    } else {
+      $this->adminModel->delete($login);
+      $this->adminList($login);
+    }
   }
 
 }

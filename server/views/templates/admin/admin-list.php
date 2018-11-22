@@ -21,6 +21,8 @@
                 <?php if ($key === 'status'): ?>
                   <?php $status = $value === '1' ? 'Активирован' : 'Отключен'; ?>
                   <?php echo $status ?>
+                <?php elseif ($key === 'date_reg'): ?>
+                  <?php echo date('d.m.Y H:i', strtotime($value))?>
                 <?php else: ?>
                   <?php echo $value ?>
                 <?php endif; ?>
@@ -30,15 +32,15 @@
             <td>
               <form action="index.php" method="post" class="d-inline-block">
                 <input type="hidden" name="admin" value="status-toggle">
-                <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
+                <input type="hidden" name="login" value="<?php echo $item['login'] ?>">
                 <?php $class = $value === '1' ? 'btn-danger' : 'btn-success'; ?>
                 <?php $value = $value === '1' ? 'Off' : 'On'; ?>
-                <button class="btn btn-sm <?php echo $class?>"><?php echo $value ?></button>
+                <button class="btn btn-sm <?php echo $class ?>"><?php echo $value ?></button>
               </form>
               <form action="index.php" method="post" class="d-inline-block">
                 <input type="hidden" name="admin" value="delete">
-                <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
-                <button  class="btn btn-sm btn-danger">
+                <input type="hidden" name="login" value="<?php echo $item['login'] ?>">
+                <button class="btn btn-sm btn-danger">
                   <span aria-hidden="true">&times;</span>
                 </button>
               </form>

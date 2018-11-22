@@ -31,6 +31,10 @@ if (isset($_GET['admin'])) {
     $pas = $_POST['pas'];
     $pas2 = $_POST['pas2'];
     $admin = $adminController->signUp($login, $pas, $pas2);
+  } elseif ($_POST['admin'] === 'status-toggle') {
+    $adminController->statusToggle($_POST['login']);
+  } elseif ($_POST['admin'] === 'delete') {
+    $adminController->delete($_POST['login']);
   }
 
 }
