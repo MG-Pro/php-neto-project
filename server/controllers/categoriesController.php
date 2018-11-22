@@ -20,16 +20,31 @@ class CategoriesController {
   public function sortToggle($dir) {
     return $dir === 'asc' ? 'desc' : 'asc';
   }
-  public function categoriesList($login, $sort = 'title', $dir = 'asc') {
+  public function categoriesList($login, $msgClass = null, $sort = 'title', $dir = 'asc') {
     $this->dir = $this->sortToggle($dir);
     $list = $this->categoriesModel->categoriesList($sort, $this->dir);
     if(count($list) === 0) {
       $this->msg = 'Пока нет категорий';
       $this->toCategories($login, [], 'alert-secondary');
     } else {
-      $this->toCategories($login, $list);
+      $this->toCategories($login, $list, $msgClass);
     }
   }
+  public function add($login, $title) {
+    if(strlen($title) < 2) {
+      $this->msg = "Имя категории не может быть короче 2 символов";
+      $this->categoriesList($login, 'alert-danger');
+    } else {
+      $cat = $this->categoriesModel->isExists($title);
+      if(count($cat) !== 0) {
+        $this->msg = "Категория с именем $title уже существует";
+        $this->categoriesList($login, 'alert-danger');
+      } else {
+        $this->categoriesModel->add($title);
+        $this->categoriesList($login);
+      }
+    }
 
+  }
 
 }

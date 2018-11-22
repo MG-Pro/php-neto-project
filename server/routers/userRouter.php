@@ -6,7 +6,11 @@ if(isset($_GET['question'])) {
   }
 
 
-} elseif (isset($_GET['admin']) || isset($_POST['admin'])) {
+} elseif (
+  isset($_GET['admin']) ||
+  isset($_POST['admin']) ||
+  isset($_POST['category'])
+) {
   include_once 'routers/adminRouter.php';
 } else {
   render('front/header.php');

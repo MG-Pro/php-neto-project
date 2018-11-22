@@ -49,6 +49,10 @@ if (isset($_GET['admin'])) {
     $adminController->delete($_POST['login']);
   }
 
+} elseif (isset($_POST['category'])) {
+  if($_POST['category'] === 'add') {
+    $categoriesController->add($_SESSION['admin']['login'], $_POST['title']);
+  }
 }
 
 

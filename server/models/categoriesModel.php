@@ -11,6 +11,15 @@ class CategoriesModel {
     $sqlCatList = "SELECT id, title FROM categories order by $sort $dir";
     return $this->request($sqlCatList)->fetchAll(PDO::FETCH_ASSOC);
   }
-
+  public function isExists($title) {
+    $sqlIsExists = "SELECT id FROM categories WHERE title='$title' LIMIT 1";
+    return $this->request($sqlIsExists)->fetchAll(PDO::FETCH_ASSOC);
+  }
+  public function add($title) {
+    $sqlAdd = "INSERT INTO categories SET title='$title'";
+    $sqlLastId = "SELECT @@IDENTITY";
+    $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC);
+  }
 
 }

@@ -13,9 +13,9 @@ class AdminModel {
   }
   public function signUp($login, $pas) {
     $sqlSignUp = "INSERT INTO admins SET login='$login', pass='$pas'";
-    $sqlLastUserId = "SELECT @@IDENTITY";
+    $sqlLastId = "SELECT @@IDENTITY";
     $this->request($sqlSignUp)->fetchAll(PDO::FETCH_ASSOC);
-    return $this->request($sqlLastUserId)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function adminList() {
     $sqlAdminList = "SELECT id, login, date_reg, status FROM admins order by date_reg";
