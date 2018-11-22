@@ -13,8 +13,8 @@ class CategoriesController {
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-categories.php', ['categoriesList'=> $list]);
   }
-  public function categoriesList($login) {
-    $list = $this->categoriesModel->categoriesList();
+  public function categoriesList($login, $sort = 'title') {
+    $list = $this->categoriesModel->categoriesList($sort);
     if(count($list) === 0) {
       $this->msg = 'Пока нет категорий';
       $this->toCategories($login, [], 'alert-secondary');

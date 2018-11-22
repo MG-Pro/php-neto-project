@@ -5,7 +5,6 @@
       <table class="table table-striped table-hover text-center">
         <thead class="thead-light">
         <tr>
-          <th scope="col">#</th>
           <th scope="col">Имя</th>
           <th scope="col">Дата регистрации</th>
           <th scope="col">Статус</th>
@@ -17,6 +16,7 @@
         <?php foreach ($adminList as $item): ?>
           <tr>
             <?php foreach ($item as $key => $value): ?>
+            <?php if ($key !== 'id'): ?>
               <td>
                 <?php if ($key === 'status'): ?>
                   <?php $status = $value === '1' ? 'Активирован' : 'Отключен'; ?>
@@ -27,6 +27,7 @@
                   <?php echo $value ?>
                 <?php endif; ?>
               </td>
+            <?php endif; ?>
             <?php endforeach; ?>
             <td>--</td>
             <td>

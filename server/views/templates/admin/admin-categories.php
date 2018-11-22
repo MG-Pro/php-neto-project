@@ -16,9 +16,6 @@
           <thead class="thead-light">
           <tr>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=num">#</a>
-            </th>
-            <th scope="col">
               <a href="index.php?admin=admin-categories&sortBy=title">Имя</a>
             </th>
             <th scope="col">
@@ -34,9 +31,11 @@
           <?php foreach ($categoriesList as $item): ?>
             <tr>
               <?php foreach ($item as $key => $value): ?>
+              <?php if ($key !== 'id'): ?>
                 <td>
                   <?php echo $value ?>
                 </td>
+              <?php endif; ?>
               <?php endforeach; ?>
               <td>--</td>
               <td>
