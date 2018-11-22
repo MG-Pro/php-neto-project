@@ -24,12 +24,14 @@ if (isset($_GET['admin'])) {
     }
   } elseif ($_GET['admin'] === 'admin-categories') {
     if (isset($_SESSION['admin']['login'])) {
-      $categoriesController->categoriesList($_SESSION['admin']['login']);
+      if(isset($_REQUEST['sortBy'])) {
+        $categoriesController->categoriesList($_SESSION['admin']['login'], $_REQUEST['sortBy'], $_REQUEST['dir']);
+      } else {
+        $categoriesController->categoriesList($_SESSION['admin']['login']);
+      }
     } else {
       $adminController->signIn();
     }
-
-
   }
 } elseif (isset($_POST['admin'])) {
   if ($_POST['admin'] === 'signin') {
