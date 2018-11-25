@@ -67,5 +67,9 @@ class CategoriesController {
       }
     }
   }
-
+  public function delete($login, $id, $title) {
+    $this->categoriesModel->delete($id);
+    $this->msg = "Категория '$title' удалена";
+    $this->categoriesList($login, $msgClass = 'alert-success');
+  }
 }

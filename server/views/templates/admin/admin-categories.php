@@ -43,6 +43,7 @@
                 <form action="index.php" method="post" class="d-inline-block">
                   <input type="hidden" name="category" value="delete">
                   <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
+                  <input type="hidden" name="title" value="<?php echo $item['title'] ?>">
                   <button class="btn btn-sm btn-danger">
                     <span aria-hidden="true">X</span>
                   </button>

@@ -63,7 +63,10 @@ if (isset($_GET['admin'])) {
     $categoriesController->add($_SESSION['admin']['login'], $_POST['title']);
   } elseif ($_POST['category'] === 'rename') {
       $categoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+  } elseif ($_POST['category'] === 'delete') {
+    $categoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   }
+
 }
 
 
