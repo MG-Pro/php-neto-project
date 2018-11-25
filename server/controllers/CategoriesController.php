@@ -1,5 +1,5 @@
 <?php
-include_once 'models/categoriesModel.php';
+include_once 'models/CategoriesModel.php';
 
 class CategoriesController {
   private $msg = null;
@@ -16,6 +16,12 @@ class CategoriesController {
       'categoriesList'=> $list,
       'dir' => $this->dir,
       ]);
+  }
+  public function toRenameForm($login, $id, $title, $msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => $login]);
+    render('admin/admin-panel.php');
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('admin/admin-categories-rename.php', ['id' => $id, 'title' => $title]);
   }
   public function sortToggle($dir) {
     return $dir === 'asc' ? 'desc' : 'asc';
@@ -44,7 +50,22 @@ class CategoriesController {
         $this->categoriesList($login);
       }
     }
-
+  }
+  public function rename($login, $id, $title) {
+    if(strlen($title) < 2) {
+      $this->msg = "Имя категории не может быть короче 2 символов";
+      $this->toRenameForm($login, $id, 'alert-danger');
+    } else {
+      $cat = $this->categoriesModel->isExists($title);
+      if(count($cat) !== 0) {
+        $this->msg = "Категория с именем $title уже существует";
+        $this->toRenameForm($login, $id, $title, 'alert-danger');
+      } else {
+        $this->categoriesModel->rename($id, $title);
+        $this->msg = 'Имя категории измененено';
+        $this->categoriesList($login, $msgClass = 'alert-success');
+      }
+    }
   }
 
 }

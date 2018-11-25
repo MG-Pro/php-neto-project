@@ -38,10 +38,24 @@
               <?php endif; ?>
               <?php endforeach; ?>
               <td>--</td>
-              <td>
-                  --
-              </td>
               <td>--</td>
+              <td>
+                <form action="index.php" method="post" class="d-inline-block">
+                  <input type="hidden" name="category" value="delete">
+                  <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
+                  <button class="btn btn-sm btn-danger">
+                    <span aria-hidden="true">X</span>
+                  </button>
+                </form>
+                <form action="index.php" method="get" class="d-inline-block">
+                  <input type="hidden" name="category" value="rename">
+                  <input type="hidden" name="id" value="<?php echo $item['id'] ?>">
+                  <input type="hidden" name="title" value="<?php echo $item['title'] ?>">
+                  <button class="btn btn-sm btn-success">
+                    <span aria-hidden="true">Rename</span>
+                  </button>
+                </form>
+              </td>
             </tr>
           <?php endforeach; ?>
           </tbody>

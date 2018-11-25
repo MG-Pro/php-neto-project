@@ -21,5 +21,12 @@ class CategoriesModel {
     $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
     return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC);
   }
-
+  public function rename($id, $title) {
+    $sqlRename = "
+    UPDATE categories 
+    SET title='$title' 
+    WHERE id=$id 
+    LIMIT 1";
+    return $this->request($sqlRename)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

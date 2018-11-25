@@ -1,6 +1,6 @@
 <?php
-include_once 'controllers/adminController.php';
-include_once 'controllers/categoriesController.php';
+include_once 'controllers/AdminController.php';
+include_once 'controllers/CategoriesController.php';
 
 $adminController = new AdminController($pdo);
 $categoriesController = new CategoriesController($pdo);
@@ -49,9 +49,20 @@ if (isset($_GET['admin'])) {
     $adminController->delete($_POST['login']);
   }
 
+} elseif (isset($_GET['category'])) {
+  if($_GET['category'] === 'rename') {
+    if (isset($_SESSION['admin']['login'])) {
+      $categoriesController->toRenameForm($_SESSION['admin']['login'], $_GET['id'], $_GET['title']);
+    } else {
+      $adminController->signIn();
+    }
+  }
+
 } elseif (isset($_POST['category'])) {
   if($_POST['category'] === 'add') {
     $categoriesController->add($_SESSION['admin']['login'], $_POST['title']);
+  } elseif ($_POST['category'] === 'rename') {
+      $categoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   }
 }
 
