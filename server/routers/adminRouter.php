@@ -25,7 +25,7 @@ if (isset($_GET['admin'])) {
   } elseif ($_GET['admin'] === 'admin-categories') {
     if (isset($_SESSION['admin']['login'])) {
       if(isset($_REQUEST['sortBy'])) {
-        $categoriesController->categoriesList($_SESSION['admin']['login'], $_REQUEST['sortBy'], $_REQUEST['dir']);
+        $categoriesController->categoriesList($_SESSION['admin']['login'], null, $_REQUEST['sortBy'], $_REQUEST['dir']);
       } else {
         $categoriesController->categoriesList($_SESSION['admin']['login']);
       }
