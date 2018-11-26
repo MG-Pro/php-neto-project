@@ -17,19 +17,21 @@ class QuestionModel {
     return $this->request($sqlQuestionList)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function add($qData) {
-    $email = $qData['email'];
-    $author = $qData['author'];
     $title = $qData['title'];
+    $authorId = $qData['authorId'];
+    $categoryId = $qData['categoryId'];
     $content = $qData['content'];
 
     $sqlAdd = "
     INSERT INTO questions 
     SET 
-      title='$title'
-
+      title='$title',
+      author_id='$authorId',
+      category_id='$categoryId',
+      content='$content'
     ";
     $sqlLastId = "SELECT @@IDENTITY";
     $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
-    return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC);
+    return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC)[0]['@@IDENTITY'];
   }
 }
