@@ -5,9 +5,15 @@ $questionController = new QuestionController($pdo);
 
 if(isset($_GET['question'])) {
   if ($_GET['question'] === 'add') {
-    render('front/header.php');
-    render('front/add-question.php');
+    $questionController->addForm();
   }
+
+
+} elseif (isset($_POST['question'])) {
+  if ($_POST['question'] === 'add') {
+    $questionController->add($_POST);
+  }
+
 
 
 } elseif (

@@ -11,14 +11,45 @@ class QuestionController {
     $this->questionModel = new QuestionModel($pdo);
     $this->categoriesModel = new CategoriesModel($pdo);
   }
-  private function toQuestionList($catList, $questionList) {
+  private function toQuestionList($catList, $questionList, $activeCat) {
     render('front/header.php');
-    render('front/main.php', ['catList' => $catList, 'questionList' => $questionList]);
+    render('front/main.php', ['catList' => $catList, 'questionList' => $questionList, 'activeCat'=> $activeCat]);
+  }
+  private function toAddForm($catList, $msgClass = null) {
+    render('front/header.php');
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('front/add-question.php', ['catList' => $catList]);
   }
   public function questionList($categoryId = 0) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc');
     $questionList = $this->questionModel->questionList($catList[$categoryId]['id']);
-    $this->toQuestionList($catList, $questionList);
+    $this->toQuestionList($catList, $questionList, $catList[$categoryId]['id']);
+  }
+  public function addForm() {
+    $catList = $this->categoriesModel->categoriesList('title', 'asc');
+    $this->toAddForm($catList);
+  }
+  public function add($qData) {
+    $catList = $this->categoriesModel->categoriesList('title', 'asc');
+    if(count($qData['email']) < 7) {
+      $this->msg = 'Email должен быть не короче 7 символов';
+      $this->toAddForm($catList, 'alert-danger');
+    } elseif (count($qData['author']) < 3) {
+      $this->msg = 'Имя должно быть не короче 3 символов';
+      $this->toAddForm($catList, 'alert-danger');
+    } elseif (count($qData['title']) < 5) {
+      $this->msg = 'Заголовок должен быть не короче 5 символов';
+      $this->toAddForm($catList, 'alert-danger');
+    } elseif (count($qData['content']) < 10) {
+      $this->msg = 'Заголовок должен быть не короче 10 символов';
+      $this->toAddForm($catList, 'alert-danger');
+    } else {
+
+    }
+
+
+
+
   }
 
 }

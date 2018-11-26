@@ -26,13 +26,4 @@ body {
   flex: 1 0 auto;
 }
 
-.add-question {
-  font-size: 28px;
-  color: #ff7567;
-}
-.add-question:hover {
-  color: #b45a51;
-  text-decoration: none;
-}
-
 /*# sourceMappingURL=style.css.map */
