@@ -26,10 +26,20 @@ class QuestionController {
     render('front/add-question.php', ['catList' => $catList]);
   }
 
-  public function questionList($categoryId = 0, $msgClass = null) {
+  public function questionList($categoryId, $msgClass = null) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc');
-    $questionList = $this->questionModel->questionList($catList[ $categoryId ]['id']);
-    $this->toQuestionList($catList, $questionList, $catList[ $categoryId ]['id'], $msgClass);
+    if($categoryId !== null) {
+      foreach ($catList as $i => $cat) {
+        if ($cat['id'] === $categoryId) {
+          $catIndex = $i;
+          break;
+        }
+      }
+    } else {
+      $catIndex = 0;
+    }
+    $questionList = $this->questionModel->questionList($catList[$catIndex]['id']);
+    $this->toQuestionList($catList, $questionList, $catList[ $catIndex ]['id'], $msgClass);
   }
 
   public function addForm() {
@@ -60,7 +70,7 @@ class QuestionController {
       }
       $this->questionModel->add($qData);
       $this->msg = 'Вопрос добавлен';
-      $this->questionList(0, 'alert-success');
+      $this->questionList(null, 'alert-success');
     }
 
 

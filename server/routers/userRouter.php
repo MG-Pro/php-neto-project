@@ -6,6 +6,8 @@ $questionController = new QuestionController($pdo);
 if(isset($_GET['question'])) {
   if ($_GET['question'] === 'add') {
     $questionController->addForm();
+  } elseif ($_GET['question'] === 'category') {
+    $questionController->questionList($_REQUEST['id']);
   }
 
 
@@ -23,7 +25,7 @@ if(isset($_GET['question'])) {
   isset($_GET['category'])) {
   include_once 'routers/adminRouter.php';
 } else {
-  $questionController->questionList();
+  $questionController->questionList(null);
 }
 
 

@@ -9,6 +9,18 @@
       <hr>
     </div>
   </div>
-  <ul></ul>
+  <div>
+    <?php foreach ($questionList as $question): ?>
+    <div class="card">
+      <div class="card-header">
+        <div class="row">
+          <div class="col-5">
+            <?php echo $question['title']?>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?php endforeach; ?>
+  </div>
 </div>
 
