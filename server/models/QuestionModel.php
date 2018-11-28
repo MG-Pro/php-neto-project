@@ -16,11 +16,14 @@ class QuestionModel {
      c.title as category, 
      q.content as content, 
      q.date_added as date_added,
-     a.name as author
+     a.name as author,
+     an.content as answer,
+     an.date_added as answer_date
     FROM questions q
     JOIN categories c ON q.category_id=c.id
     JOIN authors a ON q.author_id=a.id
-    WHERE q.category_id='$categoryId' 
+    JOIN answers an ON q.answer_id=an.id
+    WHERE q.category_id='$categoryId' AND q.answer_id IS NOT NULL
     order by q.date_added";
     return $this->request($sqlQuestionList)->fetchAll(PDO::FETCH_ASSOC);
   }

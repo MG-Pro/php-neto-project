@@ -8,6 +8,7 @@
   <title>FAQ</title>
   <link rel="stylesheet" href="views/css/bootstrap.min.css">
   <link rel="stylesheet" href="views/css/style.css">
+  <script src="views/js/script.js"></script>
 </head>
 <body>
 <div class="wrapper">
