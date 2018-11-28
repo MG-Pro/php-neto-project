@@ -8,7 +8,16 @@ class CategoriesModel {
     return $this->pdo->query($sql);
   }
   public function categoriesList($sort, $dir) {
-    $sqlCatList = "SELECT id, title FROM categories order by $sort $dir";
+    $sqlCatList = "
+    SELECT 
+      c.id as id, 
+      c.title as title,
+      COUNT(q.id) as count_q
+    FROM categories c
+    LEFT OUTER JOIN questions q 
+      ON q.category_id=c.id AND q.is_show='1'
+    GROUP BY c.id
+    order by $sort $dir";
     return $this->request($sqlCatList)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function isExists($title) {
