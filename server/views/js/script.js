@@ -6,7 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const list = Array.from(listCont.querySelectorAll('.card'));
 
   list.forEach(card => {
-    card.querySelector('.show-answer').addEventListener('click', e => {
+    const showEl = card.querySelector('.show-answer');
+    if(!showEl) {
+      return;
+    }
+    showEl.addEventListener('click', e => {
       e.preventDefault();
       list.forEach(item => {
         item.querySelector('.answer').classList.add('d-none');
