@@ -7,7 +7,8 @@ class CategoriesModel {
   private function request($sql) {
     return $this->pdo->query($sql);
   }
-  public function categoriesList($sort, $dir) {
+  public function categoriesList($sort, $dir, $status = '1') {
+    $status = $status === '1' ? $status : 'q.is_show';
     $sqlCatList = "
     SELECT 
       c.id as id, 
@@ -15,7 +16,7 @@ class CategoriesModel {
       COUNT(q.id) as count_q
     FROM categories c
     LEFT OUTER JOIN questions q 
-      ON q.category_id=c.id AND q.is_show='1'
+      ON q.category_id=c.id AND q.is_show=$status
     GROUP BY c.id
     order by $sort $dir";
     return $this->request($sqlCatList)->fetchAll(PDO::FETCH_ASSOC);

@@ -72,8 +72,5 @@ class QuestionController {
       $this->msg = 'Вопрос добавлен';
       $this->questionList(null, 'alert-success');
     }
-
-
   }
-
 }

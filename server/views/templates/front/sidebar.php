@@ -8,7 +8,7 @@
         href="index.php?question=category&id=<?php echo $cat['id']?>"
       >
         <?php echo $cat['title'] ?>
-        <span class="badge badge-primary badge-info">
+        <span class="badge badge-primary badge-danger">
         <?php echo $cat['count_q'] ?>
       </span>
       </a>

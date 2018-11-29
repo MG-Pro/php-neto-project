@@ -1,7 +1,7 @@
 <?php
 include_once 'models/CategoriesModel.php';
 
-class CategoriesController {
+class AdminCategoriesController {
   private $msg = null;
   private $dir;
   private $categoriesModel;

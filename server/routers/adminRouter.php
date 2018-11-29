@@ -1,14 +1,16 @@
 <?php
 include_once 'controllers/AdminController.php';
-include_once 'controllers/CategoriesController.php';
+include_once 'controllers/AdminCategoriesController.php';
+include_once 'controllers/AdminQuestionController.php';
 
 $adminController = new AdminController($pdo);
-$categoriesController = new CategoriesController($pdo);
+$adminCategoriesController = new AdminCategoriesController($pdo);
+$adminQuestionController = new AdminQuestionController($pdo);
 
 if (isset($_GET['admin'])) {
   if ($_GET['admin'] === 'signin') {
     if (isset($_SESSION['admin']['login'])) {
-      $adminController->toAdmin($_SESSION['admin']['login']);
+      $adminQuestionController->questionList($_SESSION['admin']['login'], null);
     } else {
       $adminController->signIn();
     }
@@ -25,13 +27,22 @@ if (isset($_GET['admin'])) {
   } elseif ($_GET['admin'] === 'admin-categories') {
     if (isset($_SESSION['admin']['login'])) {
       if(isset($_REQUEST['sortBy'])) {
-        $categoriesController->categoriesList($_SESSION['admin']['login'], null, $_REQUEST['sortBy'], $_REQUEST['dir']);
+        $adminCategoriesController->categoriesList($_SESSION['admin']['login'], null, $_REQUEST['sortBy'], $_REQUEST['dir']);
       } else {
-        $categoriesController->categoriesList($_SESSION['admin']['login']);
+        $adminCategoriesController->categoriesList($_SESSION['admin']['login']);
       }
     } else {
       $adminController->signIn();
     }
+  } elseif ($_GET['admin'] === 'admin-questions') {
+    if (isset($_SESSION['admin']['login'])) {
+      $catId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
+      $adminQuestionController->questionList($_SESSION['admin']['login'], $catId);
+    } else {
+      $adminController->signIn();
+    }
+  } else {
+    $adminController->signIn();
   }
 } elseif (isset($_POST['admin'])) {
   if ($_POST['admin'] === 'signin') {
@@ -52,7 +63,7 @@ if (isset($_GET['admin'])) {
 } elseif (isset($_GET['category'])) {
   if($_GET['category'] === 'rename') {
     if (isset($_SESSION['admin']['login'])) {
-      $categoriesController->toRenameForm($_SESSION['admin']['login'], $_GET['id'], $_GET['title']);
+      $adminCategoriesController->toRenameForm($_SESSION['admin']['login'], $_GET['id'], $_GET['title']);
     } else {
       $adminController->signIn();
     }
@@ -60,13 +71,12 @@ if (isset($_GET['admin'])) {
 
 } elseif (isset($_POST['category'])) {
   if($_POST['category'] === 'add') {
-    $categoriesController->add($_SESSION['admin']['login'], $_POST['title']);
+    $adminCategoriesController->add($_SESSION['admin']['login'], $_POST['title']);
   } elseif ($_POST['category'] === 'rename') {
-      $categoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+      $adminCategoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   } elseif ($_POST['category'] === 'delete') {
-    $categoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+    $adminCategoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   }
-
 }
 
 

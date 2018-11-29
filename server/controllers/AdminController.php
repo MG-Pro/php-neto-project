@@ -8,11 +8,11 @@ class AdminController {
   public function __construct($pdo) {
     $this->adminModel = new AdminModel($pdo);
   }
-  public function toAdmin($login, $msgClass = null) {
+  public function toQuestionList($login, $catList, $qList, $msgClass = null) {
     render('admin/admin-header.php', ['adminName' => $login]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-panel.php');
-    render('admin/admin-content.php');
+    render('admin/admin-content.php', []);
   }
   private function toSignInForm($msgClass = null) {
     render('admin/admin-header.php', ['adminName' => null]);
@@ -43,7 +43,7 @@ class AdminController {
         if (count($admin) !== '0') {
           if($admin[0]['status'] === '1') {
             $_SESSION['admin'] = $admin[0];
-            $this->toAdmin($login);
+            header('Location: index.php?admin=question');
             return $admin;
           } else {
             $this->msg = "Пользователь $login не имеет статус администратора";
