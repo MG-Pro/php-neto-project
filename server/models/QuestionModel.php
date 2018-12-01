@@ -54,8 +54,8 @@ class QuestionModel {
   }
   public function add($qData) {
     $title = $qData['title'];
-    $authorId = $qData['authorId'];
-    $categoryId = $qData['categoryId'];
+    $authorId = $qData['answer_id'];
+    $categoryId = $qData['category_id'];
     $content = $qData['content'];
 
     $sqlAdd = "
@@ -72,22 +72,23 @@ class QuestionModel {
   }
   public function update($qData) {
     $title = $qData['title'];
-    $categoryId = $qData['categoryId'];
+    $categoryId = $qData['category_id'];
     $content = $qData['content'];
     $id = $qData['id'];
-    $answerId = $qData['answerId'];
+    $answerId = $qData['answer_id'];
     $answer = $qData['answer'];
+    $adminId = $qData['admin_id'];
 
     $sqlUpdate = "
     UPDATE questions q, answers an
     SET 
       q.title='$title',
-      q.category_id='$categoryId',
+      q.category_id=$categoryId,
       q.content='$content',
       q.answer_id = $answerId,
-      an.content = $answer
-    WHERE id=$id 
-    ";
+      an.content = '$answer',
+      an.admin_id = $adminId
+    WHERE q.id=$id";
     return $this->request($sqlUpdate)->fetchAll(PDO::FETCH_ASSOC);
   }
 }

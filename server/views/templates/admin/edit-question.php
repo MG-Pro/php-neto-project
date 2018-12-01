@@ -24,7 +24,7 @@
           <div class="col">
             <div class="form-group">
               <label for="category">Категория</label>
-              <select class="form-control" id="category" name="categoryId">
+              <select class="form-control" id="category" name="category_id">
                 <?php foreach ($catList as $cat): ?>
                   <option
                     value="<?php echo $cat['id'] ?>"
@@ -54,7 +54,7 @@
           <div class="col">
             <div class="form-group">
               <label for="textarea">Ответ</label>
-              <textarea class="form-control" id="textarea" rows="3" name="content"><?php echo
+              <textarea class="form-control" id="textarea" rows="3" name="answer"><?php echo
                   $question['answer'] === null ? '' : $question['answer']?></textarea>
             </div>
           </div>
@@ -67,7 +67,8 @@
           </div>
         </div>
         <input type="hidden" name="admin-question" value="update">
-        <input type="hidden" name="answerId" value="<?php echo $question['answer_id']?>">
+        <input type="hidden" name="id" value="<?php echo $question['id']?>">
+        <input type="hidden" name="answer_id" value="<?php echo $question['answer_id']?>">
       </form>
     </div>
   </div>

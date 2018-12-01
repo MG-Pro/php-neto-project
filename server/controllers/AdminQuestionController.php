@@ -33,7 +33,7 @@ class AdminQuestionController {
     render('admin/edit-question.php', ['question' => $question, 'catList' => $catList]);
   }
 
-  public function questionList($login, $categoryId) {
+  public function questionList($login, $categoryId, $msgClass = null) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc', '%');
     if($categoryId !== null) {
       foreach ($catList as $i => $cat) {
@@ -46,7 +46,7 @@ class AdminQuestionController {
       $catIndex = 0;
     }
     $qList = $this->questionModel->questionList($catList[$catIndex]['id'], '%');
-    $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id']);
+    $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $msgClass);
   }
 
   public function editQuestion($login, $id) {
@@ -57,28 +57,28 @@ class AdminQuestionController {
 
   public function update($admin, $qData) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc');
+    $question = $this->questionModel->question($qData['id'])[0];
+    $qData['author_email'] = $question['author_email'];
+    $qData['author'] = $question['author'];
+    $qData['category'] = $question['category'];
     $login = $admin['login'];
-    if (strlen($qData['email']) < 7) {
-      $this->msg = 'Email должен быть не короче 7 символов';
-      $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
-    } elseif (strlen($qData['author']) < 3) {
-      $this->msg = 'Имя должно быть не короче 3 символов';
-      $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
-    } elseif (strlen($qData['title']) < 5) {
+    if (strlen($qData['title']) < 5) {
       $this->msg = 'Заголовок должен быть не короче 5 символов';
       $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
     } elseif (strlen($qData['content']) < 10) {
-      $this->msg = 'Заголовок должен быть не короче 10 символов';
+      $this->msg = 'Содержимое должно быть не короче 10 символов';
       $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
     } elseif (strlen($qData['answer']) < 10) {
       $this->msg = 'Ответ должен быть не короче 10 символов';
       $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
     } else {
-      $qData['adminId'] = $admin['id'];
-      if($qData['answer_id'] === null) {
+      $qData['admin_id'] = $admin['id'];
+      if(!$qData['answer_id']) {
         $qData['answer_id'] = $this->answerModel->add($qData['answer'], $admin['id']);
       }
       $this->questionModel->update($qData);
+      $this->msg = 'Вопрос обновлен';
+      $this->questionList($login, $qData['category_id'], 'alert-success');
     }
   }
 
