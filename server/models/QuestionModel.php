@@ -19,7 +19,8 @@ class QuestionModel {
      q.date_added as date_added,
      a.name as author,
      an.content as answer,
-     an.date_added as answer_date
+     an.date_added as answer_date,
+     q.is_show as is_show
     FROM questions q
     LEFT JOIN categories c ON q.category_id=c.id
     LEFT JOIN authors a ON q.author_id=a.id
@@ -28,6 +29,28 @@ class QuestionModel {
       AND q.is_show=$status
     order by q.date_added";
     return $this->request($sqlQuestionList)->fetchAll(PDO::FETCH_ASSOC);
+  }
+  public function question($id) {
+    $sqlQuestion = "
+    SELECT 
+     q.id as id, 
+     q.title as title, 
+     c.title as category, 
+     q.content as content, 
+     q.date_added as date_added,
+     a.name as author,
+     a.email as author_email,
+     an.content as answer,
+     an.id as answer_id,
+     an.date_added as answer_date,
+     q.is_show as is_show
+    FROM questions q
+    LEFT JOIN categories c ON q.category_id=c.id
+    LEFT JOIN authors a ON q.author_id=a.id
+    LEFT JOIN answers an ON q.answer_id=an.id
+    WHERE q.id='$id' 
+    LIMIT 1";
+    return $this->request($sqlQuestion)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function add($qData) {
     $title = $qData['title'];
@@ -46,5 +69,25 @@ class QuestionModel {
     $sqlLastId = "SELECT @@IDENTITY";
     $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
     return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC)[0]['@@IDENTITY'];
+  }
+  public function update($qData) {
+    $title = $qData['title'];
+    $categoryId = $qData['categoryId'];
+    $content = $qData['content'];
+    $id = $qData['id'];
+    $answerId = $qData['answerId'];
+    $answer = $qData['answer'];
+
+    $sqlUpdate = "
+    UPDATE questions q, answers an
+    SET 
+      q.title='$title',
+      q.category_id='$categoryId',
+      q.content='$content',
+      q.answer_id = $answerId,
+      an.content = $answer
+    WHERE id=$id 
+    ";
+    return $this->request($sqlUpdate)->fetchAll(PDO::FETCH_ASSOC);
   }
 }

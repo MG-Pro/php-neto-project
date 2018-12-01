@@ -22,6 +22,7 @@ if(isset($_GET['question'])) {
   isset($_GET['admin']) ||
   isset($_POST['admin']) ||
   isset($_POST['category']) ||
+  isset($_POST['admin-question']) ||
   isset($_GET['category'])) {
   include_once 'routers/adminRouter.php';
 } else {

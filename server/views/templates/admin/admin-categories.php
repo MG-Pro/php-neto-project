@@ -38,7 +38,6 @@
               <?php endif; ?>
               <?php endforeach; ?>
               <td>--</td>
-              <td>--</td>
               <td>
                 <form action="index.php" method="post" class="d-inline-block">
                   <input type="hidden" name="category" value="delete">

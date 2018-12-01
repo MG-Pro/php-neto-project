@@ -41,6 +41,19 @@ if (isset($_GET['admin'])) {
     } else {
       $adminController->signIn();
     }
+  } elseif ($_GET['admin'] === 'edit-question') {
+    if (isset($_SESSION['admin']['login'])) {
+
+      $adminQuestionController->editQuestion($_SESSION['admin']['login'], $_REQUEST['id']);
+    } else {
+      $adminController->signIn();
+    }
+  } elseif ($_GET['admin'] === 'delete-question') {
+    if (isset($_SESSION['admin']['login'])) {
+      // todo delete
+    } else {
+      $adminController->signIn();
+    }
   } else {
     $adminController->signIn();
   }
@@ -76,6 +89,10 @@ if (isset($_GET['admin'])) {
       $adminCategoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   } elseif ($_POST['category'] === 'delete') {
     $adminCategoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+  }
+} elseif (isset($_POST['admin-question'])) {
+  if($_POST['admin-question'] === 'update') {
+    $adminQuestionController->update($_SESSION['admin'], $_POST);
   }
 }
 

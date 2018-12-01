@@ -43,7 +43,7 @@ class AdminController {
         if (count($admin) !== '0') {
           if($admin[0]['status'] === '1') {
             $_SESSION['admin'] = $admin[0];
-            header('Location: index.php?admin=question');
+            header('Location: index.php?admin=admin-questions');
             return $admin;
           } else {
             $this->msg = "Пользователь $login не имеет статус администратора";

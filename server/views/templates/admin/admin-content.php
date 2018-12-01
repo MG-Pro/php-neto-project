@@ -68,9 +68,20 @@
             <div class="card-footer text-right">
               <?php if ($question['answer'] !== null): ?>
                 <a href="#" class="card-link show-answer">Посмотреть ответ</a>
-                <a href="index.php?admin=edit-question" class="card-link">Редактировать вопрос</a>
+                <a href="index.php?admin=edit-question&id=<?php echo $question['id'] ?>"
+                  class="card-link">Редактировать вопрос</a>
               <?php else: ?>
-                <a href="index.php?admin=edit-question" class="card-link">Добавить ответ</a>
+                <a href="index.php?admin=edit-question&id=<?php echo $question['id'] ?>" class="card-link">Добавить
+                  ответ</a>
+              <?php endif; ?>
+              <a href="index.php?admin=delete-question&id=<?php echo $question['id'] ?>" class="card-link">Удалить
+                вопрос</a>
+              <?php if ($question['is_show'] === '0'): ?>
+                <a href="index.php?admin=show-question&id=<?php echo $question['id'] ?>" class="card-link">Показать
+                  вопрос</a>
+              <?php else: ?>
+                <a href="index.php?admin=hide-question&id=<?php echo $question['id'] ?>" class="card-link">Скрыть
+                  вопрос</a>
               <?php endif; ?>
             </div>
           </div>
