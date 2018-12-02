@@ -35,7 +35,8 @@ class QuestionModel {
     SELECT 
      q.id as id, 
      q.title as title, 
-     c.title as category, 
+     c.title as category,
+     c.id as category_id,
      q.content as content, 
      q.date_added as date_added,
      a.name as author,
@@ -90,5 +91,12 @@ class QuestionModel {
       an.admin_id = $adminId
     WHERE q.id=$id";
     return $this->request($sqlUpdate)->fetchAll(PDO::FETCH_ASSOC);
+  }
+  public function delete($id) {
+    $sqlDel = "
+    DELETE FROM questions
+    WHERE id='$id' 
+    LIMIT 1";
+    return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
 }

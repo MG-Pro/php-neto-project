@@ -40,7 +40,7 @@ class CategoriesModel {
     return $this->request($sqlRename)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function delete($id) {
-    $sqlDelAdmin = "DELETE FROM categories WHERE id='$id' LIMIT 1";
-    return $this->request($sqlDelAdmin)->fetchAll(PDO::FETCH_ASSOC);
+    $sqlDel = "DELETE FROM categories WHERE id='$id' LIMIT 1";
+    return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
 }

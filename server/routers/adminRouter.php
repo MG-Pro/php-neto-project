@@ -50,7 +50,7 @@ if (isset($_GET['admin'])) {
     }
   } elseif ($_GET['admin'] === 'delete-question') {
     if (isset($_SESSION['admin']['login'])) {
-      // todo delete
+      $adminQuestionController->deleteQuestion($_SESSION['admin']['login'], $_REQUEST['id']);
     } else {
       $adminController->signIn();
     }

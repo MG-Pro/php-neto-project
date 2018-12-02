@@ -83,7 +83,13 @@ class AdminQuestionController {
   }
 
   public function deleteQuestion($login, $id) {
-
+    $question = $this->questionModel->question($id)[0];
+    if($question['answer_id'] !== null) {
+      $this->answerModel->delete($question['answer_id']);
+    }
+    $this->questionModel->delete($id);
+    $this->msg = 'Вопрос удален';
+    $this->questionList($login, $question['category_id'] , 'alert-success');
   }
 
   public function showToggleQuestion($login, $id) {
