@@ -8,6 +8,12 @@ class AdminCategoriesController {
   public function __construct($pdo) {
     $this->categoriesModel = new CategoriesModel($pdo);
   }
+  private function toDelConfirm($login, $count, $id, $title, $msgClass = null) {
+    render('admin/admin-header.php', ['adminName' => $login]);
+    render('admin/admin-panel.php');
+    render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
+    render('admin/admin-category-del-confirm.php', ['id' => $id, 'title' => $title, 'count' => $count]);
+  }
   public function toCategories($login, $list, $msgClass = null) {
     render('admin/admin-header.php', ['adminName' => $login]);
     render('admin/admin-panel.php');
@@ -73,9 +79,14 @@ class AdminCategoriesController {
       }
     }
   }
-  public function delete($login, $id, $title) {
-    $this->categoriesModel->delete($id);
-    $this->msg = "Категория '$title' удалена";
-    $this->categoriesList($login, $msgClass = 'alert-success');
+  public function delete($login, $id, $count, $title, $needConfirm = true) {
+    if((int)$count > 0 && $needConfirm) {
+      $this->toDelConfirm($login,$count, $id, $title);
+    } else {
+      $this->categoriesModel->delete($id);
+      $this->msg = "Категория '$title' удалена";
+      $this->categoriesList($login, $msgClass = 'alert-success');
+    }
+
   }
 }

@@ -99,7 +99,21 @@ if (isset($_GET['admin'])) {
   } elseif ($_POST['category'] === 'rename') {
     $adminCategoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   } elseif ($_POST['category'] === 'delete') {
-    $adminCategoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+    if($_POST['need-confirm'] === '1') {
+      $adminCategoriesController->delete(
+        $_SESSION['admin']['login'],
+        $_POST['id'],
+        $_POST['question-count'],
+        $_POST['title']);
+    } else {
+      // todo add del all question from cat
+      $adminCategoriesController->delete(
+        $_SESSION['admin']['login'],
+        $_POST['id'],
+        $_POST['question-count'],
+        $_POST['title'],
+        false);
+    }
   }
 } elseif (isset($_POST['admin-question'])) {
   if ($_POST['admin-question'] === 'update') {
