@@ -99,4 +99,8 @@ class QuestionModel {
     LIMIT 1";
     return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
+  public function showToggle($id) {
+    $sqlShowToggle = "UPDATE questions SET is_show=NOT is_show WHERE id='$id' LIMIT 1";
+    return $this->request($sqlShowToggle)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }

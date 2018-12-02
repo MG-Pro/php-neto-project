@@ -54,6 +54,12 @@ if (isset($_GET['admin'])) {
     } else {
       $adminController->signIn();
     }
+  } elseif ($_GET['admin'] === 'show-toggle-question') {
+    if (isset($_SESSION['admin']['login'])) {
+      $adminQuestionController->showToggleQuestion($_SESSION['admin']['login'], $_REQUEST['id']);
+    } else {
+      $adminController->signIn();
+    }
   } else {
     $adminController->signIn();
   }

@@ -93,7 +93,8 @@ class AdminQuestionController {
   }
 
   public function showToggleQuestion($login, $id) {
-
+    $this->questionModel->showToggle($id);
+    $this->editQuestion($login, $id);
   }
 }
 

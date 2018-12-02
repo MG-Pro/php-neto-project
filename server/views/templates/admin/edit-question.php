@@ -62,9 +62,10 @@
         <div class="row">
           <div class="col text-right">
             <?php if (!$question['is_show']): ?>
-            <a href="index.php?admin=show-question&id=<?php echo $question['id']?>" class="btn btn-success">Показать</a>
+            <a href="index.php?admin=show-toggle-question&id=<?php echo $question['id']?>" class="btn
+            btn-success">Показать</a>
             <?php else: ?>
-              <a href="index.php?admin=hide-question&id=<?php echo $question['id']?>" class="btn btn-warning">Скрыть</a>
+              <a href="index.php?admin=show-toggle-question&id=<?php echo $question['id']?>" class="btn btn-warning">Скрыть</a>
             <?php endif; ?>
             <a href="index.php?admin=delete-question&id=<?php echo $question['id']?>" class="btn btn-danger">Удалить</a>
             <button type="submit" class="btn btn-primary">Сохранить</button>
