@@ -16,18 +16,18 @@
         <?php foreach ($adminList as $item): ?>
           <tr>
             <?php foreach ($item as $key => $value): ?>
-            <?php if ($key !== 'id'): ?>
-              <td>
-                <?php if ($key === 'status'): ?>
-                  <?php $status = $value === '1' ? 'Активирован' : 'Отключен'; ?>
-                  <?php echo $status ?>
-                <?php elseif ($key === 'date_reg'): ?>
-                  <?php echo date('d.m.Y H:i', strtotime($value))?>
-                <?php else: ?>
-                  <?php echo $value ?>
-                <?php endif; ?>
-              </td>
-            <?php endif; ?>
+              <?php if ($key !== 'id'): ?>
+                <td>
+                  <?php if ($key === 'status'): ?>
+                    <?php $status = $value === '1' ? 'Активирован' : 'Отключен'; ?>
+                    <?php echo $status ?>
+                  <?php elseif ($key === 'date_reg'): ?>
+                    <?php echo date('d.m.Y H:i', strtotime($value)) ?>
+                  <?php else: ?>
+                    <?php echo $value ?>
+                  <?php endif; ?>
+                </td>
+              <?php endif; ?>
             <?php endforeach; ?>
             <td>--</td>
             <td>

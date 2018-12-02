@@ -26,11 +26,17 @@ if (isset($_GET['admin'])) {
     }
   } elseif ($_GET['admin'] === 'admin-categories') {
     if (isset($_SESSION['admin']['login'])) {
-      if(isset($_REQUEST['sortBy'])) {
+      if (isset($_REQUEST['sortBy'])) {
         $adminCategoriesController->categoriesList($_SESSION['admin']['login'], null, $_REQUEST['sortBy'], $_REQUEST['dir']);
       } else {
         $adminCategoriesController->categoriesList($_SESSION['admin']['login']);
       }
+    } else {
+      $adminController->signIn();
+    }
+  } elseif ($_GET['admin'] === 'category-rename') {
+    if (isset($_SESSION['admin']['login'])) {
+      $adminCategoriesController->toRenameForm($_SESSION['admin']['login'], $_GET['id'], $_GET['title']);
     } else {
       $adminController->signIn();
     }
@@ -60,6 +66,12 @@ if (isset($_GET['admin'])) {
     } else {
       $adminController->signIn();
     }
+  } elseif ($_GET['admin'] === 'admin-edit') {
+    if (isset($_SESSION['admin']['login'])) {
+      $adminController->toEditForm($_SESSION['admin']['login']);
+    } else {
+      $adminController->signIn();
+    }
   } else {
     $adminController->signIn();
   }
@@ -77,29 +89,24 @@ if (isset($_GET['admin'])) {
     $adminController->statusToggle($_POST['login']);
   } elseif ($_POST['admin'] === 'delete') {
     $adminController->delete($_POST['login']);
-  }
-
-} elseif (isset($_GET['category'])) {
-  if($_GET['category'] === 'rename') {
-    if (isset($_SESSION['admin']['login'])) {
-      $adminCategoriesController->toRenameForm($_SESSION['admin']['login'], $_GET['id'], $_GET['title']);
-    } else {
-      $adminController->signIn();
-    }
+  } elseif ($_POST['admin'] === 'edit-pass') {
+    $adminController->edit($_POST['login'], $_POST['old-pas'], $_POST['new-pas'], $_POST['new-pas2']);
   }
 
 } elseif (isset($_POST['category'])) {
-  if($_POST['category'] === 'add') {
+  if ($_POST['category'] === 'add') {
     $adminCategoriesController->add($_SESSION['admin']['login'], $_POST['title']);
   } elseif ($_POST['category'] === 'rename') {
-      $adminCategoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
+    $adminCategoriesController->rename($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   } elseif ($_POST['category'] === 'delete') {
     $adminCategoriesController->delete($_SESSION['admin']['login'], $_POST['id'], $_POST['title']);
   }
 } elseif (isset($_POST['admin-question'])) {
-  if($_POST['admin-question'] === 'update') {
+  if ($_POST['admin-question'] === 'update') {
     $adminQuestionController->update($_SESSION['admin'], $_POST);
   }
+
+
 }
 
 

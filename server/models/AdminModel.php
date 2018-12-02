@@ -34,4 +34,8 @@ class AdminModel {
     $sqlDelAdmin = "DELETE FROM admins WHERE login='$login' LIMIT 1";
     return $this->request($sqlDelAdmin)->fetchAll(PDO::FETCH_ASSOC);
   }
+  public function editPass($id, $pass) {
+    $sqlEditPass = "UPDATE admins SET pass='$pass' WHERE id='$id' LIMIT 1";
+    return $this->request($sqlEditPass)->fetchAll(PDO::FETCH_ASSOC);
+  }
 }
