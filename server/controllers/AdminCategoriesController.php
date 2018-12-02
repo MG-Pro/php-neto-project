@@ -39,7 +39,7 @@ class AdminCategoriesController {
         $calcList[$key]['waiting_q'] = (int)$item['count_q'] - (int)$item['public_q'];
       }
 
-      $this->toCategories($login, $calcList, $msgClass);
+      $this->toCategories($login, $list, $msgClass);
     }
   }
   public function add($login, $title) {

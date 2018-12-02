@@ -19,13 +19,13 @@
               <a href="index.php?admin=admin-categories&sortBy=title&dir=<?php echo $dir ?>">Имя</a>
             </th>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=count_q">Вопросы</a>
+              <a href="index.php?admin=admin-categories&sortBy=count_q&dir=<?php echo $dir ?>">Вопросы</a>
             </th>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=public_q">Опубликовано</a>
+              <a href="index.php?admin=admin-categories&sortBy=public_q&dir=<?php echo $dir ?>">Опубликовано</a>
             </th>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=waiting_q">Без ответа</a>
+              <a href="index.php?admin=admin-categories&sortBy=waiting_q&dir=<?php echo $dir ?>">Без ответа</a>
             </th>
             <th scope="col">Действия</th>
           </tr>

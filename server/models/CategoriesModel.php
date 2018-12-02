@@ -14,7 +14,8 @@ class CategoriesModel {
       c.id as id, 
       c.title as title,
       COUNT(q.id) as count_q,
-      COUNT(q2.id) as public_q
+      COUNT(q2.id) as public_q,
+      (COUNT(q.id) - COUNT(q2.id)) as waiting_q
     FROM categories c
     LEFT OUTER JOIN questions q 
       ON q.category_id=c.id AND q.is_show=$status
