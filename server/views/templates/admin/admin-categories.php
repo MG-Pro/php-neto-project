@@ -16,13 +16,16 @@
           <thead class="thead-light">
           <tr>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=title&dir=<?php echo $dir?>">Имя</a>
+              <a href="index.php?admin=admin-categories&sortBy=title&dir=<?php echo $dir ?>">Имя</a>
             </th>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=que">Вопросы</a>
+              <a href="index.php?admin=admin-categories&sortBy=count_q">Вопросы</a>
             </th>
             <th scope="col">
-              <a href="index.php?admin=admin-categories&sortBy=ans">Ответы</a>
+              <a href="index.php?admin=admin-categories&sortBy=public_q">Опубликовано</a>
+            </th>
+            <th scope="col">
+              <a href="index.php?admin=admin-categories&sortBy=waiting_q">Без ответа</a>
             </th>
             <th scope="col">Действия</th>
           </tr>
@@ -31,13 +34,18 @@
           <?php foreach ($categoriesList as $item): ?>
             <tr>
               <?php foreach ($item as $key => $value): ?>
-              <?php if ($key !== 'id'): ?>
-                <td>
-                  <?php echo $value ?>
-                </td>
-              <?php endif; ?>
+                <?php if ($key === 'title'): ?>
+                  <td>
+                    <a href="index.php?admin=admin-questions&id=<?php echo $item['id'] ?>"><?php echo $value ?></a>
+                  </td>
+                <?php elseif ($key === 'id') : ?>
+                  <?php continue; ?>
+                <?php else: ?>
+                  <td>
+                    <?php echo $value ?>
+                  </td>
+                <?php endif; ?>
               <?php endforeach; ?>
-              <td>--</td>
               <td>
                 <form action="index.php" method="post" class="d-inline-block">
                   <input type="hidden" name="category" value="delete">

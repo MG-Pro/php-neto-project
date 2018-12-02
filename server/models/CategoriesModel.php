@@ -13,10 +13,13 @@ class CategoriesModel {
     SELECT 
       c.id as id, 
       c.title as title,
-      COUNT(q.id) as count_q
+      COUNT(q.id) as count_q,
+      COUNT(q2.id) as public_q
     FROM categories c
     LEFT OUTER JOIN questions q 
       ON q.category_id=c.id AND q.is_show=$status
+    LEFT OUTER JOIN questions q2 
+      ON q2.category_id=c.id AND q.is_show='1'
     GROUP BY c.id
     order by $sort $dir";
     return $this->request($sqlCatList)->fetchAll(PDO::FETCH_ASSOC);

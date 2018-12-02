@@ -28,12 +28,18 @@ class AdminCategoriesController {
   }
   public function categoriesList($login, $msgClass = null, $sort = 'title', $dir = 'asc') {
     $this->dir = $this->sortToggle($dir);
-    $list = $this->categoriesModel->categoriesList($sort, $this->dir);
+    $list = $this->categoriesModel->categoriesList($sort, $this->dir, '0');
     if(count($list) === 0) {
       $this->msg = 'Пока нет категорий';
       $this->toCategories($login, [], 'alert-secondary');
     } else {
-      $this->toCategories($login, $list, $msgClass);
+      $calcList = [];
+      foreach ($list as $key => $item) {
+        $calcList[$key] = $item;
+        $calcList[$key]['waiting_q'] = (int)$item['count_q'] - (int)$item['public_q'];
+      }
+
+      $this->toCategories($login, $calcList, $msgClass);
     }
   }
   public function add($login, $title) {
