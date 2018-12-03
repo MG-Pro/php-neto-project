@@ -81,7 +81,7 @@ class AdminCategoriesController {
   }
   public function delete($login, $id, $count, $title, $needConfirm = true) {
     if((int)$count > 0 && $needConfirm) {
-      $this->toDelConfirm($login,$count, $id, $title);
+      $this->toDelConfirm($login, $count, $id, $title);
     } else {
       $this->categoriesModel->delete($id);
       $this->msg = "Категория '$title' удалена";

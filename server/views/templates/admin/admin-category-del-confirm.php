@@ -14,6 +14,8 @@
               <input type="hidden" name="category" value="delete">
               <input type="hidden" name="id" value="<?php echo $id ?>">
               <input type="hidden" name="need-confirm" value="0">
+              <input type="hidden" name="question-count" value="<?php echo $count ?>">
+              <input type="hidden" value="<?php echo $title ?>">
               <button type="submit" class="btn btn-danger">Удалить</button>
             </form>
           </div>
