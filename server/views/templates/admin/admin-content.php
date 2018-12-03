@@ -31,7 +31,7 @@
           <div class="card mb-3">
             <div class="card-header">
               <div class="row">
-                <div class="col-8">
+                <div class="col-6">
                   <h5 class="card-title">
                     <?php echo strtoupper($question['title']) ?>
                   </h5>
@@ -39,6 +39,22 @@
                     <span class="text-dark font-weight-bold">Автор: </span>
                     <?php echo $question['author'] ?>
                   </p>
+                </div>
+                <div class="col-2">
+                  <p class="card-subtitle text-muted">
+                    <span class="text-dark font-weight-bold">Статус: </span>
+                    <?php
+                        if($question['is_show']) {
+                          $isShow = 'Показан';
+                          $isShowClass = 'success';
+                        } else {
+                          $isShow = 'Скрыт';
+                          $isShowClass = 'warning';
+                        }
+                    ?>
+                    <span class="badge badge-<?php echo $isShowClass?> p-1"><?php echo $isShow ?></span>
+                  </p>
+
                 </div>
                 <div class="col-4 text-right">
                   <p class="card-subtitle text-muted">
