@@ -15,7 +15,7 @@
           </div>
           <div class="form-group">
             <label for="category">Категория</label>
-            <select class="form-control" id="category" name="categoryId">
+            <select class="form-control" id="category" name="category_id">
               <?php foreach ($catList as $cat): ?>
                 <option value="<?php echo $cat['id']?>"><?php echo $cat['title']?></option>
               <?php endforeach; ?>

@@ -55,7 +55,7 @@ class QuestionModel {
   }
   public function add($qData) {
     $title = $qData['title'];
-    $authorId = $qData['answer_id'];
+    $authorId = $qData['author_id'];
     $categoryId = $qData['category_id'];
     $content = $qData['content'];
 
@@ -97,6 +97,16 @@ class QuestionModel {
     DELETE FROM questions
     WHERE id='$id' 
     LIMIT 1";
+    return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
+  }
+  public function groupDelete($categoryId) {
+    $sqlDel = "
+    DELETE questions, answers
+    FROM questions
+    LEFT JOIN answers
+    ON questions.answer_id=answers.id
+    WHERE questions.category_id='$categoryId' 
+";
     return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
   public function showToggle($id) {

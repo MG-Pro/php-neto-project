@@ -106,7 +106,7 @@ if (isset($_GET['admin'])) {
         $_POST['question-count'],
         $_POST['title']);
     } else {
-      // todo add del all question from cat
+      $adminQuestionController->groupDeleteQuestions($_POST['id']);
       $adminCategoriesController->delete(
         $_SESSION['admin']['login'],
         $_POST['id'],

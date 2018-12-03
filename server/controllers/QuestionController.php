@@ -55,8 +55,8 @@ class QuestionController {
     } elseif (strlen($qData['author']) < 3) {
       $this->msg = 'Имя должно быть не короче 3 символов';
       $this->toAddForm($catList, 'alert-danger');
-    } elseif (strlen($qData['title']) < 5) {
-      $this->msg = 'Заголовок должен быть не короче 5 символов';
+    } elseif (strlen($qData['title']) < 3) {
+      $this->msg = 'Заголовок должен быть не короче 3 символов';
       $this->toAddForm($catList, 'alert-danger');
     } elseif (strlen($qData['content']) < 10) {
       $this->msg = 'Заголовок должен быть не короче 10 символов';
@@ -64,9 +64,9 @@ class QuestionController {
     } else {
       $author = $this->authorsModel->isExist($qData['email']);
       if (count($author) === 0) {
-        $qData['authorId'] = $this->authorsModel->add($qData['author'], $qData['email']);
+        $qData['author_id'] = $this->authorsModel->add($qData['author'], $qData['email']);
       } else {
-        $qData['authorId'] = $author[0]['id'];
+        $qData['author_id'] = $author[0]['id'];
       }
       $this->questionModel->add($qData);
       $this->msg = 'Вопрос добавлен';

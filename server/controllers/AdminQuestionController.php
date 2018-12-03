@@ -92,6 +92,10 @@ class AdminQuestionController {
     $this->questionList($login, $question['category_id'] , 'alert-success');
   }
 
+  public function groupDeleteQuestions($categoryId) {
+    $this->questionModel->groupDelete($categoryId);
+  }
+
   public function showToggleQuestion($login, $id) {
     $this->questionModel->showToggle($id);
     $this->editQuestion($login, $id);
