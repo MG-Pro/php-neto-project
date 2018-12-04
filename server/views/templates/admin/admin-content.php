@@ -23,6 +23,28 @@
       </div>
     </div>
     <div class="col-9 admin-content">
+      <div class="row  mr-2">
+        <div class="col">
+          <form action="index.php" method="get">
+            <input type="hidden" name="admin" value="admin-questions">
+            <input type="hidden" name="id" value="<?php echo $activeCat ?>">
+            <div class="form-group row text-right">
+              <div class="col-4"></div>
+              <label class="col-2 col-form-label text-right">Фильтр:</label>
+              <div class="col-4">
+                <select class="form-control" name="filter">
+                  <option value="all">Все</option>
+                  <option value="answered">С ответом</option>
+                  <option value="unanswered">Без ответа</option>
+                </select>
+              </div>
+              <div class="col-2">
+                <button class="btn badge-dark">Применить</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
       <div id="questionList">
         <?php if (count($questionList) === 0): ?>
           <h5><?php echo "В категории пока нет вопросов" ?></h5>
@@ -44,17 +66,16 @@
                   <p class="card-subtitle text-muted">
                     <span class="text-dark font-weight-bold">Статус: </span>
                     <?php
-                        if($question['is_show']) {
-                          $isShow = 'Показан';
-                          $isShowClass = 'success';
-                        } else {
-                          $isShow = 'Скрыт';
-                          $isShowClass = 'warning';
-                        }
+                    if ($question['is_show']) {
+                      $isShow = 'Показан';
+                      $isShowClass = 'success';
+                    } else {
+                      $isShow = 'Скрыт';
+                      $isShowClass = 'warning';
+                    }
                     ?>
-                    <span class="badge badge-<?php echo $isShowClass?> p-1"><?php echo $isShow ?></span>
+                    <span class="badge badge-<?php echo $isShowClass ?> p-1"><?php echo $isShow ?></span>
                   </p>
-
                 </div>
                 <div class="col-4 text-right">
                   <p class="card-subtitle text-muted">
@@ -90,7 +111,8 @@
                 <a href="index.php?admin=edit-question&id=<?php echo $question['id'] ?>" class="btn btn-primary">Добавить
                   ответ</a>
               <?php endif; ?>
-              <a href="index.php?admin=delete-question&id=<?php echo $question['id'] ?>" class="btn btn-danger">Удалить</a>
+              <a href="index.php?admin=delete-question&id=<?php echo $question['id'] ?>"
+                class="btn btn-danger">Удалить</a>
             </div>
           </div>
         <?php endforeach; ?>

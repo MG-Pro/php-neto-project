@@ -43,7 +43,11 @@ if (isset($_GET['admin'])) {
   } elseif ($_GET['admin'] === 'admin-questions') {
     if (isset($_SESSION['admin']['login'])) {
       $catId = isset($_REQUEST['id']) ? $_REQUEST['id'] : null;
-      $adminQuestionController->questionList($_SESSION['admin']['login'], $catId);
+      if(isset($_REQUEST['filter'])) {
+        $adminQuestionController->questionList($_SESSION['admin']['login'], $catId, $_REQUEST['filter']);
+      } else {
+        $adminQuestionController->questionList($_SESSION['admin']['login'], $catId);
+      }
     } else {
       $adminController->signIn();
     }

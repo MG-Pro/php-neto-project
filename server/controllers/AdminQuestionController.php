@@ -33,7 +33,7 @@ class AdminQuestionController {
     render('admin/edit-question.php', ['question' => $question, 'catList' => $catList]);
   }
 
-  public function questionList($login, $categoryId, $msgClass = null) {
+  public function questionList($login, $categoryId, $filter = null, $msgClass = null) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc', '%');
     if($categoryId !== null) {
       foreach ($catList as $i => $cat) {
@@ -45,7 +45,7 @@ class AdminQuestionController {
     } else {
       $catIndex = 0;
     }
-    $qList = $this->questionModel->questionList($catList[$catIndex]['id'], '%');
+    $qList = $this->questionModel->questionList($catList[$catIndex]['id'], '0', $filter);
     $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $msgClass);
   }
 

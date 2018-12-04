@@ -2,14 +2,25 @@
 
 class QuestionModel {
   private $pdo;
+
   public function __construct($pdo) {
     $this->pdo = $pdo;
   }
+
   private function request($sql) {
     return $this->pdo->query($sql);
   }
-  public function questionList($categoryId = '%', $status = '1') {
+
+  public function questionList($categoryId = 'q.category_id', $status = '1', $filter = '') {
     $status = $status === '1' ? $status : 'q.is_show';
+
+    if ($filter === 'unanswered') {
+      $filter = 'AND an.content IS NULL';
+    } elseif ($filter === 'answered') {
+      $filter = 'AND an.content IS NOT NULL';
+    } else {
+      $filter = '';
+    }
     $sqlQuestionList = "
     SELECT 
      q.id as id, 
@@ -27,9 +38,11 @@ class QuestionModel {
     LEFT JOIN answers an ON q.answer_id=an.id
     WHERE q.category_id='$categoryId' 
       AND q.is_show=$status
+      $filter
     order by q.date_added";
     return $this->request($sqlQuestionList)->fetchAll(PDO::FETCH_ASSOC);
   }
+
   public function question($id) {
     $sqlQuestion = "
     SELECT 
@@ -53,6 +66,7 @@ class QuestionModel {
     LIMIT 1";
     return $this->request($sqlQuestion)->fetchAll(PDO::FETCH_ASSOC);
   }
+
   public function add($qData) {
     $title = $qData['title'];
     $authorId = $qData['author_id'];
@@ -71,6 +85,7 @@ class QuestionModel {
     $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
     return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC)[0]['@@IDENTITY'];
   }
+
   public function update($qData) {
     $title = $qData['title'];
     $categoryId = $qData['category_id'];
@@ -92,6 +107,7 @@ class QuestionModel {
     WHERE q.id=$id";
     return $this->request($sqlUpdate)->fetchAll(PDO::FETCH_ASSOC);
   }
+
   public function delete($id) {
     $sqlDel = "
     DELETE FROM questions
@@ -99,6 +115,7 @@ class QuestionModel {
     LIMIT 1";
     return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
+
   public function groupDelete($categoryId) {
     $sqlDel = "
     DELETE questions, answers
@@ -109,6 +126,7 @@ class QuestionModel {
 ";
     return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
   }
+
   public function showToggle($id) {
     $sqlShowToggle = "UPDATE questions SET is_show=NOT is_show WHERE id='$id' LIMIT 1";
     return $this->request($sqlShowToggle)->fetchAll(PDO::FETCH_ASSOC);
