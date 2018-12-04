@@ -131,4 +131,8 @@ class QuestionModel {
     $sqlShowToggle = "UPDATE questions SET is_show=NOT is_show WHERE id='$id' LIMIT 1";
     return $this->request($sqlShowToggle)->fetchAll(PDO::FETCH_ASSOC);
   }
+  public function count() {
+    $sqlCount = "SELECT COUNT(id) as count FROM questions";
+    return $this->request($sqlCount)->fetchAll(PDO::FETCH_ASSOC)[0]['count'];
+  }
 }

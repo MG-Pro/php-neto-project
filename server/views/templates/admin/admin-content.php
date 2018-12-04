@@ -20,6 +20,13 @@
       </span>
           </a>
         <?php endforeach; ?>
+        <a
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php echo $active ?>"
+          href="index.php?admin=admin-questions&id=all"
+        >Все вопросы
+          <span class="badge badge-primary badge-danger">
+        <?php echo $count ?>
+      </span></a>
       </div>
     </div>
     <div class="col-9 admin-content">

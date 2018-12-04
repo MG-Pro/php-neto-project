@@ -19,11 +19,11 @@ class AdminQuestionController {
     $this->answerModel = new AnswerModel($pdo);
   }
 
-  private function toQuestionList($login, $catList, $qList, $activeCat, $msgClass = null) {
+  private function toQuestionList($login, $catList, $qList, $activeCat, $count, $msgClass = null) {
     render('admin/admin-header.php', ['adminName' => $login]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-panel.php');
-    render('admin/admin-content.php', ['catList' => $catList, 'questionList' => $qList, 'activeCat' =>$activeCat]);
+    render('admin/admin-content.php', ['catList' => $catList, 'questionList' => $qList, 'activeCat' =>$activeCat, 'count' => $count]);
   }
 
   private function toEditQuestion($login, $question, $catList, $msgClass = null) {
@@ -46,7 +46,8 @@ class AdminQuestionController {
       $catIndex = 0;
     }
     $qList = $this->questionModel->questionList($catList[$catIndex]['id'], '0', $filter);
-    $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $msgClass);
+    $count = $this->questionModel->count();
+    $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $count, $msgClass);
   }
 
   public function editQuestion($login, $id) {
