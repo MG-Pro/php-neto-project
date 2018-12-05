@@ -11,9 +11,9 @@ class QuestionModel {
     return $this->pdo->query($sql);
   }
 
-  public function questionList($categoryId = 'q.category_id', $status = '1', $filter = '') {
+  public function questionList($categoryId, $status = '1', $filter = '') {
     $status = $status === '1' ? $status : 'q.is_show';
-
+    $categoryId = $categoryId ? $categoryId : 'q.category_id';
     if ($filter === 'unanswered') {
       $filter = 'AND an.content IS NULL';
     } elseif ($filter === 'answered') {
@@ -36,7 +36,7 @@ class QuestionModel {
     LEFT JOIN categories c ON q.category_id=c.id
     LEFT JOIN authors a ON q.author_id=a.id
     LEFT JOIN answers an ON q.answer_id=an.id
-    WHERE q.category_id='$categoryId' 
+    WHERE q.category_id=$categoryId 
       AND q.is_show=$status
       $filter
     order by q.date_added";

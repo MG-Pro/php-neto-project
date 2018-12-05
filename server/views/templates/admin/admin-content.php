@@ -9,7 +9,10 @@
     <div class="col-3 admin-sidebar border-right">
       <div class="list-group">
         <?php foreach ($catList as $cat): ?>
-          <?php $active = $activeCat === $cat['id'] ? 'active' : '' ?>
+          <?php
+          $activeAll = $activeCat === 'all' ? 'active' : '';
+          $active = $activeCat === $cat['id'] ? 'active' : '';
+          ?>
           <a
             class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php echo $active ?>"
             href="index.php?admin=admin-questions&id=<?php echo $cat['id'] ?>"
@@ -21,7 +24,8 @@
           </a>
         <?php endforeach; ?>
         <a
-          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php echo $active ?>"
+          class="list-group-item list-group-item-action d-flex justify-content-between align-items-center <?php echo
+          $activeAll ?>"
           href="index.php?admin=admin-questions&id=all"
         >Все вопросы
           <span class="badge badge-primary badge-danger">

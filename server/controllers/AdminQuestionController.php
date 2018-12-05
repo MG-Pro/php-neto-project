@@ -23,7 +23,7 @@ class AdminQuestionController {
     render('admin/admin-header.php', ['adminName' => $login]);
     render('message.php', ['msg' => $this->msg, 'msgClass' => $msgClass]);
     render('admin/admin-panel.php');
-    render('admin/admin-content.php', ['catList' => $catList, 'questionList' => $qList, 'activeCat' =>$activeCat, 'count' => $count]);
+    render('admin/admin-content.php', ['catList' => $catList, 'questionList' => $qList, 'activeCat' => $activeCat, 'count' => $count]);
   }
 
   private function toEditQuestion($login, $question, $catList, $msgClass = null) {
@@ -34,20 +34,27 @@ class AdminQuestionController {
   }
 
   public function questionList($login, $categoryId, $filter = null, $msgClass = null) {
-    $catList = $this->categoriesModel->categoriesList('title', 'asc', '%');
-    if($categoryId !== null) {
-      foreach ($catList as $i => $cat) {
-        if ($cat['id'] === $categoryId) {
-          $catIndex = $i;
-          break;
-        }
-      }
-    } else {
-      $catIndex = 0;
-    }
-    $qList = $this->questionModel->questionList($catList[$catIndex]['id'], '0', $filter);
+    $catList = $this->categoriesModel->categoriesList('title', 'asc', null);
     $count = $this->questionModel->count();
-    $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $count, $msgClass);
+
+    if ($categoryId === 'all') {
+      $qList = $this->questionModel->questionList(null, '0', $filter);
+      $this->toQuestionList($login, $catList, $qList, 'all', $count, $msgClass);
+
+    } else {
+      if ($categoryId !== null) {
+        foreach ($catList as $i => $cat) {
+          if ($cat['id'] === $categoryId) {
+            $catIndex = $i;
+            break;
+          }
+        }
+      } else {
+        $catIndex = 0;
+      }
+      $qList = $this->questionModel->questionList($catList[ $catIndex ]['id'], '0', $filter);
+      $this->toQuestionList($login, $catList, $qList, $catList[ $catIndex ]['id'], $count, $msgClass);
+    }
   }
 
   public function editQuestion($login, $id) {
@@ -74,7 +81,7 @@ class AdminQuestionController {
       $this->toEditQuestion($login, $qData, $catList, 'alert-danger');
     } else {
       $qData['admin_id'] = $admin['id'];
-      if(!$qData['answer_id']) {
+      if (!$qData['answer_id']) {
         $qData['answer_id'] = $this->answerModel->add($qData['answer'], $admin['id']);
       }
       $this->questionModel->update($qData);
@@ -85,12 +92,12 @@ class AdminQuestionController {
 
   public function deleteQuestion($login, $id) {
     $question = $this->questionModel->question($id)[0];
-    if($question['answer_id'] !== null) {
+    if ($question['answer_id'] !== null) {
       $this->answerModel->delete($question['answer_id']);
     }
     $this->questionModel->delete($id);
     $this->msg = 'Вопрос удален';
-    $this->questionList($login, $question['category_id'] , 'alert-success');
+    $this->questionList($login, $question['category_id'], 'alert-success');
   }
 
   public function groupDeleteQuestions($categoryId) {
