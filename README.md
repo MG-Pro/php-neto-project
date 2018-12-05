@@ -2,4 +2,4 @@
 
 #### Demo
 
-http://university.netology.ru/u/mgladkih/diplom/index.php?admin=admin-categories
+http://university.netology.ru/u/mgladkih/diplom/index.php
