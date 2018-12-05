@@ -7,14 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   list.forEach(card => {
     const showEl = card.querySelector('.show-answer');
-    if(!showEl) {
+    if (!showEl) {
       return;
     }
     showEl.addEventListener('click', e => {
       e.preventDefault();
       list.forEach(item => {
-        item.querySelector('.answer').classList.add('d-none');
-        item.querySelector('.show-answer').textContent = 'Посмотреть ответ';
+        const answerEl = item.querySelector('.answer');
+        const showAnswerEl = item.querySelector('.show-answer');
+        if (answerEl) {
+          answerEl.classList.add('d-none');
+          showAnswerEl.textContent = 'Посмотреть ответ';
+        }
       });
       const el = e.currentTarget;
       const answerCont = el.parentElement.parentElement.querySelector('.answer');
