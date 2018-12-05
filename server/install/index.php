@@ -1,13 +1,10 @@
 <?php
-define('DB_LOGIN', "mgladkih");
-define('DB_PASS', "neto1853");
+include '../config.php';
 
-// define('DB_LOGIN', "root");
-// define('DB_PASS', "");
 $isInstall = false;
 if (isset($_POST['install'])) {
   $pdo = new PDO(
-    "mysql:host=localhost;dbname=mgladkih;charset=UTF8",
+    "mysql:host=localhost;dbname=" . DB_NAME. ";charset=UTF8",
     DB_LOGIN,
     DB_PASS);
 

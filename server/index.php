@@ -2,7 +2,7 @@
 include_once 'config.php';
 session_start();
 $pdo = new PDO(
-  "mysql:host=localhost;dbname=faq;charset=UTF8",
+  "mysql:host=localhost;dbname=" . DB_NAME. ";charset=UTF8",
   DB_LOGIN,
   DB_PASS);
 
