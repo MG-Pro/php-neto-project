@@ -115,7 +115,7 @@
             </div>
             <div class="card-footer text-right">
               <?php if ($question['answer'] !== null): ?>
-                <a href="#" class="btn btn-secondary show-answer">Посмотреть ответ</a>
+                <a href="#" class="btn btn-secondary show-answer">Показать ответ</a>
                 <a href="index.php?admin=edit-question&id=<?php echo $question['id'] ?>"
                   class="btn btn-primary">Редактировать вопрос</a>
               <?php else: ?>

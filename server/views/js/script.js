@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const showAnswerEl = item.querySelector('.show-answer');
         if (answerEl) {
           answerEl.classList.add('d-none');
-          showAnswerEl.textContent = 'Посмотреть ответ';
+          showAnswerEl.textContent = 'Показать ответ';
         }
       });
       const el = e.currentTarget;
