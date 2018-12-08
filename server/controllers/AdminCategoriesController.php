@@ -1,5 +1,4 @@
 <?php
-include_once 'models/CategoriesModel.php';
 
 class AdminCategoriesController {
   private $msg = null;

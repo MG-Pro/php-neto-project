@@ -1,10 +1,5 @@
 <?php
 
-include_once 'models/QuestionModel.php';
-include_once 'models/CategoriesModel.php';
-include_once 'models/AuthorsModel.php';
-include_once 'models/AnswerModel.php';
-
 class AdminQuestionController {
   private $msg = null;
   private $questionModel;

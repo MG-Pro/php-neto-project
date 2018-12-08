@@ -1,7 +1,4 @@
 <?php
-include_once 'controllers/AdminController.php';
-include_once 'controllers/AdminCategoriesController.php';
-include_once 'controllers/AdminQuestionController.php';
 
 $adminController = new AdminController($pdo);
 $adminCategoriesController = new AdminCategoriesController($pdo);

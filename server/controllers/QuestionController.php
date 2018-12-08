@@ -1,7 +1,4 @@
 <?php
-include_once 'models/QuestionModel.php';
-include_once 'models/CategoriesModel.php';
-include_once 'models/AuthorsModel.php';
 
 class QuestionController {
   private $msg = null;

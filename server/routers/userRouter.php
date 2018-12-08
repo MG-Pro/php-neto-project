@@ -1,5 +1,4 @@
 <?php
-include_once 'controllers/QuestionController.php';
 
 $questionController = new QuestionController($pdo);
 
@@ -10,13 +9,10 @@ if(isset($_GET['question'])) {
     $questionController->questionList($_REQUEST['id']);
   }
 
-
 } elseif (isset($_POST['question'])) {
   if ($_POST['question'] === 'add') {
     $questionController->add($_POST);
   }
-
-
 
 } elseif (
   isset($_GET['admin']) ||

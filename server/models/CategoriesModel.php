@@ -1,4 +1,5 @@
 <?php
+
 class CategoriesModel {
   private $pdo;
   public function __construct($pdo) {
