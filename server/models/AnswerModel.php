@@ -5,25 +5,31 @@ class AnswerModel {
   public function __construct($pdo) {
     $this->pdo = $pdo;
   }
-  private function request($sql) {
-    return $this->pdo->query($sql);
-  }
+
   public function add($content, $adminId) {
     $sqlAdd = "
     INSERT INTO answers 
     SET 
-      content='$content',
-      admin_id='$adminId'
+      content=':content',
+      admin_id=':adminId'
     ";
     $sqlLastId = "SELECT @@IDENTITY";
-    $this->request($sqlAdd)->fetchAll(PDO::FETCH_ASSOC);
-    return $this->request($sqlLastId)->fetchAll(PDO::FETCH_ASSOC)[0]['@@IDENTITY'];
+    $stmt = $this->pdo->prepare($sqlAdd);
+    $stmt->execute(["content" => $content, "adminId" => $adminId]);
+    $stmt->fetchAll();
+
+    $stmt = $this->pdo->prepare($sqlLastId);
+    $stmt->execute();
+    return $stmt->fetchAll()[0]['@@IDENTITY'];
   }
+
   public function delete($id) {
     $sqlDel = "
     DELETE FROM answers
-    WHERE id='$id' 
+    WHERE id=':id' 
     LIMIT 1";
-    return $this->request($sqlDel)->fetchAll(PDO::FETCH_ASSOC);
+    $stmt = $this->pdo->prepare($sqlDel);
+    $stmt->execute(["id" => $id]);
+    return $stmt->fetchAll();
   }
 }
