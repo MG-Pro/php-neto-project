@@ -25,7 +25,7 @@ class QuestionController {
 
   public function questionList($categoryId, $msgClass = null) {
     $catList = $this->categoriesModel->categoriesList('title', 'asc');
-    if($categoryId !== null) {
+    if($categoryId !== null && is_numeric($categoryId)) {
       foreach ($catList as $i => $cat) {
         if ($cat['id'] === $categoryId) {
           $catIndex = $i;
